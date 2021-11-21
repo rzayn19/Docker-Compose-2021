@@ -29,7 +29,3 @@ services:
             - '--config.file=/etc/alertmanager/alertmanager.yml'
             - '--storage.path=/alertmanager'
 
-networks:
-  default:
-    external:
-      name: pilz_default

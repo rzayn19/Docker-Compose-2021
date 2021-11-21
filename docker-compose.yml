@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    client:
+        image: nginx
+        container_name: nginx
+        ports:
+            - 8000:80
+        volumes:
+            - ./nginx:/usr/share/nginx/html
+    
+    prometheus:
+        image: prom/prometheus:v2.21.0
+        container_name: prometheus
+        ports:
+        - 9000:9090
+        volumes:
+            - ./prometheus:/etc/prometheus
+        command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    
+    alertmanager:
+        image: prom/alertmanager
+        container_name: alertmanager
+        ports:
+            - 9093:9093
+        volumes:
+            - ./alertmanager/:/etc/alertmanager/
+        command:
+            - '--config.file=/etc/alertmanager/alertmanager.yml'
+            - '--storage.path=/alertmanager'
+
+networks:
+  default:
+    external:
+      name: pilz_default

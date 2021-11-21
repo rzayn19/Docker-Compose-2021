@@ -1,0 +1,8 @@
+groups:
+- name: example
+  rules:
+
+  # Alert for any instance that is unreachable for >1 minutes.
+  - alert: InstanceDown
+    expr: up == 0
+    for: 1m

@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 30s
+  scrape_timeout: 10s
+
+rule_files:
+  - "/etc/prometheus/*.rules"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets: 
+        - 'docker.for.mac.localhost:9093'
+
+scrape_configs:
+  - job_name: services
+    metrics_path: /healthcheck.html
+    static_configs:
+      - targets:
+          - 'docker.for.mac.localhost:8000'
+          # To check alerts
+          - 'idonotexists:1234'
+  
